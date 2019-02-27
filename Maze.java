@@ -18,7 +18,7 @@ public class Maze{
 
     while(inf.hasNextLine()){
       line = inf.nextLine();
-      maze += line;
+      tempMaze += line;
       System.out.println(line);
       rows++;
     }
@@ -26,21 +26,21 @@ public class Maze{
     rows = rows - 1;
     cols = line.length();
 
-    String[][] board = new String [rows][cols];
+    String[][] maze = new String [rows][cols];
     int i = 0;
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++, i++) {
-        board[r][c] = "" + maze.charAt(i);
+        maze[r][c] = "" + tempMaze.charAt(i);
       }
     }
   }
 
   public String toString() {
     String display = "";
-    for (int r = 0; r < rows; row++) {
+    for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        display += board[r][c];
+        display += maze[r][c];
       }
       display += "\n";
     }
