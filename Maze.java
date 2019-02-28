@@ -20,7 +20,6 @@ public class Maze{
     while(inf.hasNextLine()){
       line = inf.nextLine();
       tempMaze += line;
-      System.out.println(line);
       rows++;
     }
 
@@ -40,9 +39,15 @@ public class Maze{
     }
   }
 
-  //public int solve() {
+  public int solve() {
+    maze[startRow][startCol] = '@';
+    return solve(startRow, startCol);
+  }
 
-  //}
+  public int solve(int row, int col) {
+    int solution = -1;
+    return solution; 
+  }
 
   public String toString() {
     String display = "";
