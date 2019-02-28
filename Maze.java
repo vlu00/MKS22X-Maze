@@ -4,10 +4,11 @@ import java.io.*;
 public class Maze{
   private char[][] maze;
   private boolean animate;
-  private int rows, cols;
+  private int rows, cols, startRow, startCol;
   private String tempMaze;
 
   public Maze(String filename) throws FileNotFoundException{
+    animate = false;
     rows = 0;
     cols = 0;
     tempMaze = "";
@@ -25,19 +26,23 @@ public class Maze{
 
     cols = line.length();
 
-    //System.out.println(rows);
-    //System.out.println(cols);
-    //System.out.println(tempMaze);
-
     maze = new char [rows][cols];
     int i = 0;
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++, i++) {
         maze[r][c] = tempMaze.charAt(i);
+        if (tempMaze.charAt(i) == 'S') {
+          startRow = r;
+          startCol = c;
+        }
       }
     }
   }
+
+  //public int solve() {
+
+  //}
 
   public String toString() {
     String display = "";
