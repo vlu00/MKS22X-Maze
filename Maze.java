@@ -23,15 +23,18 @@ public class Maze{
       rows++;
     }
 
-    rows = rows - 1;
     cols = line.length();
 
-    String[][] maze = new String [rows][cols];
+    //System.out.println(rows);
+    //System.out.println(cols);
+    //System.out.println(tempMaze);
+
+    maze = new char [rows][cols];
     int i = 0;
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++, i++) {
-        maze[r][c] = "" + tempMaze.charAt(i);
+        maze[r][c] = tempMaze.charAt(i);
       }
     }
   }
@@ -44,6 +47,7 @@ public class Maze{
       }
       display += "\n";
     }
+    return display;
   }
 
   private void wait(int millis){
@@ -64,6 +68,14 @@ public class Maze{
     System.out.println("\033[2J\033[1;1H");
   }
 
+  public static void main(String[]args){
+      try{
+        Maze f = new Maze("Maze1.txt");
+        System.out.println(f.toString());
+      }catch(FileNotFoundException e){
+        System.out.println("Invalid filename: ");
+      }
+    }
 
 
 }
