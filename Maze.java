@@ -6,6 +6,8 @@ public class Maze{
   private boolean animate;
   private int rows, cols, startRow, startCol;
   private String tempMaze;
+  int[] changeRow = new int[] {-1, 0, 0, 1};
+  int[] changeCol = new int[] {0, 1, -1, 0};
 
   public Maze(String filename) throws FileNotFoundException{
     animate = false;
@@ -14,7 +16,7 @@ public class Maze{
     tempMaze = "";
 
     String line = "";
-    File text = new File("Maze1.txt");
+    File text = new File(filename);
     Scanner inf = new Scanner(text);
 
     while(inf.hasNextLine()){
@@ -41,12 +43,43 @@ public class Maze{
 
   public int solve() {
     maze[startRow][startCol] = '@';
-    return solve(startRow, startCol);
+    if (solve(startRow, startCol, -1) != -1) {
+      return solve(startRow, startCol, -1) + 1;
+    }
+    else {
+      return -1;
+    }
   }
 
-  public int solve(int row, int col) {
-    int solution = -1;
-    return solution; 
+  public int solve(int row, int col, int solution) {
+    //int solution = -1;
+    if(animate){
+
+            clearTerminal();
+            System.out.println(this);
+
+            wait(20);
+        }
+
+
+    if (maze[row][col] == 'E') {
+      return solution;
+    }
+    else {
+      for (int i = 0; i < 8; i++) {
+        if (maze[row+changeRow[i]][col+changeCol[i]] == ' ') {
+          maze[row][col] = '@';
+          solution++;
+          if (solve(row+changeRow[i], col+changeCol[i], solution) != -1) {
+            return solve(row+changeRow[i], col+changeCol[i], solution);
+          }
+          else {
+            maze[row][col] = '.';
+          }
+        }
+      }
+    }
+    return solution;
   }
 
   public String toString() {
@@ -80,8 +113,11 @@ public class Maze{
 
   public static void main(String[]args){
       try{
-        Maze f = new Maze("Maze1.txt");
-        System.out.println(f.toString());
+        Maze f = new Maze("data1.dat");
+        System.out.println(f);
+        f.setAnimate(true);
+        f.solve();
+        System.out.println(f);
       }catch(FileNotFoundException e){
         System.out.println("Invalid filename: ");
       }
