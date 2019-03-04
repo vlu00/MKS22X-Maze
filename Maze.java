@@ -68,7 +68,7 @@ public class Maze{
           }
         }
         else if (i == 3 && next != '#') {
-          maze[row+changeRow[i]][col+changeCol[i]] = '.';
+          maze[row][col] = '.';
         }
       }
     }
