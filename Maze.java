@@ -43,14 +43,17 @@ public class Maze{
 
   public int solve() {
     maze[startRow][startCol] = '@';
-    return solve(startRow, startCol, 0);
+    return solve(startRow, startCol, 1);
   }
 
   public int solve(int row, int col, int solution) {
     if(animate){
       clearTerminal();
       System.out.println(this);
-      wait(200);
+      System.out.println(solution);
+      System.out.println("row " + row);
+      System.out.println("col" + col);
+      wait(1000);
     }
     if (maze[row][col] == 'E') {
       return solution + 1;
@@ -67,12 +70,18 @@ public class Maze{
             maze[row+changeRow[i]][col+changeCol[i]] = '.';
           }
         }
-        else if (i == 3 && next != '#') {
-          maze[row][col] = '.';
-        }
       }
     }
     return -1;
+  }
+
+  private boolean reachedEnd(int row, int col) {
+    for (int i = 0; i < 4; i++) {
+      if (maze[row+changeRow[i]][col+changeCol[i]] == 'E') {
+        return true;
+      }
+    }
+    return false;
   }
 
   /*
@@ -129,6 +138,7 @@ public class Maze{
         f.setAnimate(true);
 
         System.out.println(f.solve());
+        System.out.println(f);
       }catch(FileNotFoundException e){
         System.out.println("Invalid filename: ");
       }
