@@ -52,30 +52,21 @@ public class Maze{
       System.out.println(this);
       wait(100);
     }
-
-    if (maze[row][col] == 'E') {
-      return solution;
-    }
-    else {
-      for (int i = 0; i < 4; i++) {
-        //char orig = maze[row+changeRow[i]][col+changeCol[i]];
-
-        if (maze[row+changeRow[i]][col+changeCol[i]] == ' ' || maze[row+changeRow[i]][col+changeCol[i]] == 'E') {
-          maze[row+changeRow[i]][col+changeCol[i]] = '@';
-          return solve(row+changeRow[i], col+changeCol[i], solution+1);
-        }
-        else if ( i == 3 && maze[row+changeRow[i]][col+changeCol[i]] != '#'){
-          maze[row+changeRow[i]][col+changeCol[i]] = '.';
-        }
-        //else {
-        //  maze[row+changeRow[i]][col+changeCol[i]] = orig;
-        //}
+    for (int i = 0; i < 4; i++) {
+      char next = maze[row+changeRow[i]][col+changeCol[i]];
+      if (next == 'E') {
+        return solution;
+      }
+      else if (next == ' ') {
+        maze[row+changeRow[i]][col+changeCol[i]] = '@';
+        return solve(row+changeRow[i], col+changeCol[i], solution+1);
+      }
+      else if (i == 3 && next != '#'){
+        maze[row+changeRow[i]][col+changeCol[i]] = '.';
       }
     }
     return -1;
   }
-
-  
 
   public String toString() {
     String display = "";
