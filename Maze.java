@@ -55,7 +55,7 @@ public class Maze{
     for (int i = 0; i < 4; i++) {
       char next = maze[row+changeRow[i]][col+changeCol[i]];
       if (next == 'E') {
-        return solution;
+        return solution + 1;
       }
       else if (next == ' ') {
         maze[row+changeRow[i]][col+changeCol[i]] = '@';
