@@ -44,10 +44,10 @@ public class Maze{
 
   public int solve() {
     maze[startRow][startCol] = '@';
-    return solve(startRow, startCol);
+    return solve(startRow, startCol, 0);
   }
 
-  public int solve(int row, int col) {
+  public int solve(int row, int col, int solution) {
     if(animate){
       clearTerminal();
       char save = maze[row][col];
@@ -58,25 +58,23 @@ public class Maze{
       wait(1000);
     }
     if (maze[row][col] == 'E') {
-      return solution + 2;
+      return solution + 1;
     }
     else {
       for (int i = 0; i < 4; i++) {
         char next = maze[row+changeRow[i]][col+changeCol[i]];
         if (next == ' ') {
           maze[row+changeRow[i]][col+changeCol[i]] = '@';
-          solution += 1;
-          int s = solve(row+changeRow[i], col+changeCol[i]);
+          int s = solve(row+changeRow[i], col+changeCol[i], solution+1);
           if (s != -1) {
             return s;
           }
           else {
             maze[row+changeRow[i]][col+changeCol[i]] = '.';
-            solution = solution -1;
           }
         }
-        else if (next == 'E') {
-          return solve(row+changeRow[i], col+changeCol[i]);
+        if (next == 'E') {
+          return solve(row+changeRow[i], col+changeCol[i], solution+1);
         }
       }
     }
