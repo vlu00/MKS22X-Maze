@@ -58,12 +58,16 @@ public class Maze{
     }
     else {
       for (int i = 0; i < 4; i++) {
+        char orig = maze[row+changeRow[i]][col+changeCol[i]];
         maze[row+changeRow[i]][col+changeCol[i]] = '@';
         if (maze[row+changeRow[i]][col+changeCol[i]] == ' ' || maze[row+changeRow[i]][col+changeCol[i]] == 'E') {
           return solve(row+changeRow[i], col+changeCol[i], solution+1);
         }
-        else {
+        else if (orig != '#'){
           maze[row+changeRow[i]][col+changeCol[i]] = '.';
+        }
+        else {
+          maze[row+changeRow[i]][col+changeCol[i]] = orig;
         }
       }
     }
