@@ -50,7 +50,7 @@ public class Maze{
     if(animate){
       clearTerminal();
       System.out.println(this);
-      wait(20);
+      wait(100);
     }
 
     if (maze[row][col] == 'E') {
@@ -58,21 +58,24 @@ public class Maze{
     }
     else {
       for (int i = 0; i < 4; i++) {
-        char orig = maze[row+changeRow[i]][col+changeCol[i]];
-        maze[row+changeRow[i]][col+changeCol[i]] = '@';
+        //char orig = maze[row+changeRow[i]][col+changeCol[i]];
+
         if (maze[row+changeRow[i]][col+changeCol[i]] == ' ' || maze[row+changeRow[i]][col+changeCol[i]] == 'E') {
+          maze[row+changeRow[i]][col+changeCol[i]] = '@';
           return solve(row+changeRow[i], col+changeCol[i], solution+1);
         }
-        else if (orig != '#'){
+        else if ( i == 3 && maze[row+changeRow[i]][col+changeCol[i]] != '#'){
           maze[row+changeRow[i]][col+changeCol[i]] = '.';
         }
-        else {
-          maze[row+changeRow[i]][col+changeCol[i]] = orig;
-        }
+        //else {
+        //  maze[row+changeRow[i]][col+changeCol[i]] = orig;
+        //}
       }
     }
     return -1;
   }
+
+  
 
   public String toString() {
     String display = "";
@@ -108,8 +111,8 @@ public class Maze{
         Maze f = new Maze("data1.dat");
         System.out.println(f);
         f.setAnimate(true);
-        f.solve();
-        System.out.println(f);
+
+        System.out.println(f.solve());
       }catch(FileNotFoundException e){
         System.out.println("Invalid filename: ");
       }
