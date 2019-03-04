@@ -53,8 +53,9 @@ public class Maze{
       System.out.println(solution);
       System.out.println("row " + row);
       System.out.println("col" + col);
-      wait(1000);
+      wait(500);
     }
+
     if (maze[row][col] == 'E') {
       return solution + 1;
     }
@@ -64,44 +65,18 @@ public class Maze{
         if (next == ' ') {
           maze[row+changeRow[i]][col+changeCol[i]] = '@';
           if (solve(row+changeRow[i], col+changeCol[i], solution+1) != -1) {
-            return solve(row+changeRow[i], col+changeCol[i], solution+1);
+            int s = solve(row+changeRow[i], col+changeCol[i], solution+1);
+            return s;
           }
           else {
             maze[row+changeRow[i]][col+changeCol[i]] = '.';
           }
         }
       }
-    }
+    }  
     return -1;
   }
 
-  private boolean reachedEnd(int row, int col) {
-    for (int i = 0; i < 4; i++) {
-      if (maze[row+changeRow[i]][col+changeCol[i]] == 'E') {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /*
-  for (int i = 0; i < 4; i++) {
-    char next = maze[row+changeRow[i]][col+changeCol[i]];
-    if (next == 'E') {
-      return solution + 1;
-    }
-    else if (next == ' ') {
-      maze[row+changeRow[i]][col+changeCol[i]] = '@';
-      if (solve(row+changeRow[i], col+changeCol[i], solution+1) != -1) {
-        return solve(row+changeRow[i], col+changeCol[i], solution+1);
-      }
-    }
-    else if (i == 3 && next != '#'){
-      maze[row+changeRow[i]][col+changeCol[i]] = '.';
-    }
-  }
-  return -1;
-  */
   public String toString() {
     String display = "";
     for (int r = 0; r < rows; r++) {
