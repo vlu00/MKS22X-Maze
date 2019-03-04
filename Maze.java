@@ -43,43 +43,31 @@ public class Maze{
 
   public int solve() {
     maze[startRow][startCol] = '@';
-    if (solve(startRow, startCol, -1) != -1) {
-      return solve(startRow, startCol, -1) + 1;
-    }
-    else {
-      return -1;
-    }
+    return solve(startRow, startCol, 0);
   }
 
   public int solve(int row, int col, int solution) {
-    //int solution = -1;
     if(animate){
-
-            clearTerminal();
-            System.out.println(this);
-
-            wait(20);
-        }
-
+      clearTerminal();
+      System.out.println(this);
+      wait(20);
+    }
 
     if (maze[row][col] == 'E') {
       return solution;
     }
     else {
-      for (int i = 0; i < 8; i++) {
-        if (maze[row+changeRow[i]][col+changeCol[i]] == ' ') {
-          maze[row][col] = '@';
-          solution++;
-          if (solve(row+changeRow[i], col+changeCol[i], solution) != -1) {
-            return solve(row+changeRow[i], col+changeCol[i], solution);
-          }
-          else {
-            maze[row][col] = '.';
-          }
+      for (int i = 0; i < 4; i++) {
+        maze[row+changeRow[i]][col+changeCol[i]] = '@';
+        if (maze[row+changeRow[i]][col+changeCol[i]] == ' ' || maze[row+changeRow[i]][col+changeCol[i]] == 'E') {
+          return solve(row+changeRow[i], col+changeCol[i], solution+1);
+        }
+        else {
+          maze[row+changeRow[i]][col+changeCol[i]] = '.';
         }
       }
     }
-    return solution;
+    return -1;
   }
 
   public String toString() {
